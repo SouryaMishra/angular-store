@@ -11,22 +11,10 @@
     ></app-products-header>
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
       <mat-grid-tile>
-        <app-product-box [fullWidthMode]="cols === 1"></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box [fullWidthMode]="cols === 1"></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box [fullWidthMode]="cols === 1"></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box [fullWidthMode]="cols === 1"></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box [fullWidthMode]="cols === 1"></app-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-box [fullWidthMode]="cols === 1"></app-product-box>
+        <app-product-box
+          (addToCart)="onAddToCart($event)"
+          [fullWidthMode]="cols === 1"
+        ></app-product-box>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-drawer-content>

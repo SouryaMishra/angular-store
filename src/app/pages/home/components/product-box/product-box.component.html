@@ -26,7 +26,7 @@
         <span class="text-red-400">
           {{ "1500" | currency : "INR" }}
         </span>
-        <button class="flex">
+        <button class="flex" (click)="onAddToCart()">
           <mat-icon class="text-gray-500"> shopping_cart </mat-icon>
         </button>
       </div>
