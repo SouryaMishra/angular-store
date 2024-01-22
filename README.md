@@ -4,6 +4,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+Create a `.env` file in the root and add the following key value pairs.
+
+```
+STRIPE_PUBLISHABLE_KEY=<your secret key>
+API_URL=http://localhost:4242/checkout
+STORE_BASE_URL=https://fakestoreapi.com
+```
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
@@ -22,6 +30,36 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
+## Fix for `Cannot find name 'process'`
+
+Install type definitions for node with `npm i -D @types/node` and then add `"node"` to the `types` field in `tsconfig.app.json`.
+
+## Fix for `process is not defined`
+
+Create a `polyfills.ts` in `src` and the following:
+
+```
+(window as any).process = {
+  env: { DEBUG: undefined },
+};
+```
+
+Add `"src/polyfills.ts"` to `files` array of `tsconfig.app.json`.
+
+```
+"files": ["src/main.ts", "src/polyfills.ts"]`
+```
+
+Add `src/polyfills.ts` to `build.options.polyfills` array in `angular.json` which has only one entry `"zone.js"`.
+
+```
+"polyfills": ["zone.js", "src/polyfills.ts"]
+```
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+```
+
+```

@@ -3,8 +3,11 @@
     <img
       [src]="product.image"
       [alt]="product.title"
-      class="w-full object-cover"
-      [ngClass]="{ 'h-[200px]': !fullWidthMode, 'h-[360px]': fullWidthMode }"
+      class="object-contain"
+      [ngClass]="{
+        'h-[200px] w-full rounded-t': !fullWidthMode,
+        'h-[360px] w-[360px] rounded-tl rounded-bl': fullWidthMode
+      }"
     />
     <div
       [ngClass]="{
@@ -14,7 +17,9 @@
     >
       <div>
         <h5>{{ product.category }}</h5>
-        <p class="truncate hover:whitespace-normal">{{ product.title }}</p>
+        <p [ngClass]="{ 'truncate hover:whitespace-normal': !fullWidthMode }">
+          {{ product.title }}
+        </p>
         <p *ngIf="fullWidthMode">
           {{ product.description }}
         </p>

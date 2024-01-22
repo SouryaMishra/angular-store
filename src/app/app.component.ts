@@ -8,6 +8,7 @@ import { CartService } from './services/cart.service';
   styleUrls: [],
 })
 export class AppComponent implements OnInit {
+  title = "store"
   cart: Cart = { items: [] };
 
   constructor(private cartService: CartService) {}

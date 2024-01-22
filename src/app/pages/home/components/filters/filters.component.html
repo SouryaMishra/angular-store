@@ -1,5 +1,7 @@
-<mat-expansion-panel *ngIf="categories">
-  <mat-expansion-panel-header>
+<mat-expansion-panel [disabled]="categories.length === 0">
+  <mat-expansion-panel-header
+    [ngClass]="{ 'cursor-auto': categories.length === 0 }"
+  >
     <mat-panel-title>{{ "categories" | uppercase }}</mat-panel-title>
   </mat-expansion-panel-header>
   <mat-selection-list

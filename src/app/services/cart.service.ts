@@ -20,7 +20,6 @@ export class CartService {
 
     this.cart.next({ items });
     this._snackBar.open('1 item added to cart', 'Ok', { duration: 3000 });
-    console.log(this.cart.value);
   }
 
   removeFromCart(itemToRemove: CartItem) {
@@ -40,6 +39,10 @@ export class CartService {
   }
 
   clearCart() {
+    if (this.cart.value.items.length === 0) {
+      this._snackBar.open('Cart is already empty', 'Ok', { duration: 3000 });
+      return;
+    }
     this.cart.next({ items: [] });
     this._snackBar.open('Cart is cleared', 'Ok', { duration: 3000 });
   }
