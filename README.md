@@ -44,16 +44,26 @@ Create a `polyfills.ts` in `src` and the following:
 };
 ```
 
-Add `"src/polyfills.ts"` to `files` array of `tsconfig.app.json`.
+Add `"src/polyfills.ts"` to `files` array of `tsconfig.app.json` and `tsconfig.spec.json`.
 
 ```
-"files": ["src/main.ts", "src/polyfills.ts"]`
+// tsconfig.app.json
+"files": ["src/main.ts", "src/polyfills.ts"]
+
+// tsconfig.spec.json
+"files": ["src/polyfills.ts"]
 ```
 
 Add `src/polyfills.ts` to `build.options.polyfills` array in `angular.json` which has only one entry `"zone.js"`.
 
 ```
 "polyfills": ["zone.js", "src/polyfills.ts"]
+```
+
+Add `src/polyfills.ts` to `test.options.polyfills` array in `angular.json` which has two entries `"zone.js"` and `"zone.js/testing"`.
+
+```
+"polyfills": ["zone.js", "zone.js/testing", "src/polyfills.ts"]
 ```
 
 ## Further help
