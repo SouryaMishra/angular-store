@@ -30,4 +30,8 @@ export class HeaderComponent {
   onClearCart() {
     this.cartService.clearCart();
   }
+
+  onCheckout() {
+    this.cartService.checkout(this.cart.items);
+  }
 }
