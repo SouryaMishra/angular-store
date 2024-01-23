@@ -8,7 +8,7 @@
       >shopping_cart</mat-icon
     >
   </button>
-  <mat-menu #menu>
+  <mat-menu #menu class="cart-menu-panel">
     <div class="p-3 divide-y divide-solid">
       <div class="pb-3 flex justify-between">
         <span class="mr-16"
@@ -20,7 +20,7 @@
       <div *ngIf="cart.items.length" class="py-3">
         <div
           *ngFor="let item of cart.items"
-          class="flex justify-between font-light mb-2"
+          class="flex justify-between gap-3 font-light mb-2"
         >
           {{ item.name }} x {{ item.quantity }}
           <span class="font-bold">{{ item.price | currency : "INR" }}</span>
