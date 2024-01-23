@@ -5,7 +5,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
 
 const ROW_HEIGHTS: Record<number, number> = {
-  1: 400,
+  1: 350,
   3: 335,
   4: 350,
 };

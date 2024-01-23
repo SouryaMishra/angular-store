@@ -1,12 +1,12 @@
 <mat-card *ngIf="product" [ngClass]="{ 'text-center': !fullWidthMode }">
-  <div [ngClass]="{ flex: fullWidthMode }">
+  <div [ngClass]="{ 'grid grid-cols-card': fullWidthMode }">
     <img
       [src]="product.image"
       [alt]="product.title"
-      class="object-contain"
+      class="object-contain mx-auto"
       [ngClass]="{
         'h-[200px] w-full rounded-t': !fullWidthMode,
-        'h-[360px] w-[360px] rounded-tl rounded-bl': fullWidthMode
+        'h-[300px] rounded-tl rounded-bl': fullWidthMode
       }"
     />
     <div
@@ -16,7 +16,7 @@
       }"
     >
       <div>
-        <h5>{{ product.category }}</h5>
+        <h5>{{ product.category | titlecase }}</h5>
         <p [ngClass]="{ 'truncate hover:whitespace-normal': !fullWidthMode }">
           {{ product.title }}
         </p>
