@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
@@ -28,10 +29,25 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    const sessionId = this.route.snapshot.queryParamMap.get('session_id');
+    const sessionIdFromStorage = localStorage.getItem('sessionId');
+
+    if (sessionId) {
+      if (sessionIdFromStorage) {
+        localStorage.removeItem('sessionId');
+        localStorage.removeItem('cart');
+        console.log('clearing cart');
+        this.cartService.clearCart({ showAlert: false });
+      }
+      this.router.navigate(['/home']);
+    }
+
     this.getProducts();
   }
 

@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
-    this.cartService.cart.subscribe((cart) => (this.cart = cart));
+    this.cartService.cart.subscribe((cart) => {
+      this.cart = cart;
+      localStorage.setItem('cart', JSON.stringify(cart));
+    });
   }
 }

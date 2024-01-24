@@ -10,7 +10,11 @@ import { loadStripe } from '@stripe/stripe-js';
   providedIn: 'root',
 })
 export class CartService {
-  cart = new BehaviorSubject<Cart>({ items: [] });
+  cart = new BehaviorSubject<Cart>(
+    localStorage.getItem('cart') !== null
+      ? JSON.parse(localStorage.getItem('cart') as string)
+      : { items: [] }
+  );
 
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
@@ -41,13 +45,14 @@ export class CartService {
     );
   }
 
-  clearCart() {
+  clearCart({ showAlert = true } = {}) {
     if (this.cart.value.items.length === 0) {
       this._snackBar.open('Cart is already empty', 'Ok', { duration: 3000 });
       return;
     }
     this.cart.next({ items: [] });
-    this._snackBar.open('Cart is cleared', 'Ok', { duration: 3000 });
+    if (showAlert)
+      this._snackBar.open('Cart is cleared', 'Ok', { duration: 3000 });
   }
 
   removeQuantity(item: CartItem) {
@@ -69,6 +74,7 @@ export class CartService {
         items,
       })
       .subscribe(async (res: any) => {
+        localStorage.setItem('sessionId', res.id);
         const stripe = await loadStripe(stripeKey);
         stripe?.redirectToCheckout({
           sessionId: res.id,
