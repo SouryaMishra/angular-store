@@ -1,5 +1,7 @@
 <mat-toolbar class="max-w-7xl mx-auto border-x justify-between">
-  <a routerLink="home">Flopkart</a>
+  <a class="flex items-center gap-2" routerLink="home"
+    >Flopkart <mat-icon>home</mat-icon></a
+  >
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon
       [matBadge]="itemsQuantity"
