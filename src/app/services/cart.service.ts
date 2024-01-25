@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Cart, CartItem } from '../models/cart.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
-import { loadStripe } from '@stripe/stripe-js';
+import { EnvironmentService } from './environment.service';
+import { StripeService } from './stripe.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,12 @@ export class CartService {
       : { items: [] }
   );
 
-  constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private http: HttpClient,
+    private environment: EnvironmentService,
+    private stripe: StripeService
+  ) {}
 
   addToCart(itemToAdd: CartItem): void {
     const items = [...this.cart.value.items];
@@ -67,18 +72,15 @@ export class CartService {
   }
 
   checkout(items: CartItem[]) {
-    const { apiUrl, stripeKey } = environment;
+    const { apiUrl, stripeKey } = this.environment.getConfig();
 
     this.http
       .post(apiUrl, {
         items,
       })
-      .subscribe(async (res: any) => {
+      .subscribe((res: any) => {
         localStorage.setItem('sessionId', res.id);
-        const stripe = await loadStripe(stripeKey);
-        stripe?.redirectToCheckout({
-          sessionId: res.id,
-        });
+        this.stripe.checkout(stripeKey, res.id);
       });
   }
 }
