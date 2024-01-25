@@ -1,5 +1,3 @@
-import { of } from 'rxjs';
-
 export const setupSpies = () => {
   const snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
   const httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
@@ -8,7 +6,6 @@ export const setupSpies = () => {
   ]);
   const stripeSpy = jasmine.createSpyObj('SpriteService', ['checkout']);
 
-  httpClientSpy.post.and.returnValue(of({ status: 200, id: 'session123' }));
   environmentSpy.getConfig.and.returnValue({
     production: false,
     stripeKey: 'sk123',

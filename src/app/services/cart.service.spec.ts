@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CartService } from './cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { Cart, CartItem } from '../models/cart.model';
 import { EnvironmentService } from './environment.service';
 import { StripeService } from './stripe.service';
@@ -23,6 +23,8 @@ describe('CartService', () => {
     httpClient = httpClientSpy;
     environment = environmentSpy;
     stripe = stripeSpy;
+
+    httpClient.post.and.returnValue(of({ status: 200, id: 'session123' }));
 
     TestBed.configureTestingModule({
       providers: [
