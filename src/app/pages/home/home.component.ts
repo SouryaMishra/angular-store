@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (sessionIdFromStorage) {
         localStorage.removeItem('sessionId');
         localStorage.removeItem('cart');
-        console.log('clearing cart');
         this.cartService.clearCart({ showAlert: false });
       }
       this.router.navigate(['/home']);

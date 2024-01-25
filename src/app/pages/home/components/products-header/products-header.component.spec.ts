@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ProductsHeaderComponent } from './products-header.component';
 
@@ -8,7 +11,8 @@ describe('ProductsHeaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ProductsHeaderComponent]
+      imports: [MatCardModule, MatMenuModule, MatIconModule],
+      declarations: [ProductsHeaderComponent],
     });
     fixture = TestBed.createComponent(ProductsHeaderComponent);
     component = fixture.componentInstance;

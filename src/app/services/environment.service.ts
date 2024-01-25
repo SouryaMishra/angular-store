@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment.development';
 })
 export class EnvironmentService {
   getConfig() {
-    console.log({ environment });
     return { ...environment };
   }
 }
