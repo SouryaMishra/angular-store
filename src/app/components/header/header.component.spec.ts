@@ -7,15 +7,14 @@ import { HeaderComponent } from './header.component';
 import { CartService } from 'src/app/services/cart.service';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CartItem } from 'src/app/models/cart.model';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let cartServiceStub = {
-    getTotal: (items: CartItem[]) => {},
+    getTotal: () => {},
     clearCart: () => {},
-    checkout: (items: CartItem[]) => {},
+    checkout: () => {},
   };
   const cartItems = [
     {
@@ -64,9 +63,10 @@ describe('HeaderComponent', () => {
   });
 
   it('should call cart service methods', () => {
-    const getTotalSpy = spyOn(cartServiceStub, 'getTotal');
-    const clearCartSpy = spyOn(cartServiceStub, 'clearCart');
-    const checkoutSpy = spyOn(cartServiceStub, 'checkout');
+    const cartServiceInjected = fixture.debugElement.injector.get(CartService);
+    const getTotalSpy = spyOn(cartServiceInjected, 'getTotal');
+    const clearCartSpy = spyOn(cartServiceInjected, 'clearCart');
+    const checkoutSpy = spyOn(cartServiceInjected, 'checkout');
     const menuButton = fixture.debugElement.query(By.css('[mat-icon-button]'));
 
     menuButton.triggerEventHandler('click');
