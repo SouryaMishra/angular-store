@@ -33,16 +33,20 @@
         [ngClass]="{ 'pt-3': itemsQuantity === 0, 'py-3': itemsQuantity !== 0 }"
       >
         Total:
-        <span class="font-bold">{{ getTotal() | currency : "INR" }}</span>
+        <span data-testid="tid-total" class="font-bold">{{
+          getTotal() | currency : "INR"
+        }}</span>
       </div>
       <div *ngIf="itemsQuantity !== 0" class="pt-3 flex justify-between">
         <button
+          data-testid="tid-clear-cart"
           (click)="onClearCart()"
           class="flex items-center justify-center bg-rose-600 text-white rounded-full w-9 h-9"
         >
           <mat-icon>remove_shopping_cart</mat-icon>
         </button>
         <button
+          data-testid="tid-checkout"
           (click)="onCheckout()"
           class="flex items-center justify-center bg-green-600 text-white rounded-full w-9 h-9"
         >
