@@ -25,3 +25,8 @@ body {
 .mat-mdc-menu-panel.cart-menu-panel {
   max-width: 400px;
 }
+
+.category-drawer .mat-expansion-panel-body {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
