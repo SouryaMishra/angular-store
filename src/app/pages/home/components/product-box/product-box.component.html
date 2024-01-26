@@ -1,6 +1,7 @@
 <mat-card *ngIf="product" [ngClass]="{ 'text-center': !fullWidthMode }">
   <div [ngClass]="{ 'grid grid-cols-card': fullWidthMode }">
     <img
+      data-testid="tid-image"
       [src]="product.image"
       [alt]="product.title"
       class="object-contain mx-auto"
@@ -16,19 +17,26 @@
       }"
     >
       <div>
-        <h5>{{ product.category | titlecase }}</h5>
-        <p [ngClass]="{ 'truncate hover:whitespace-normal': !fullWidthMode }">
+        <h5 data-testid="tid-category">{{ product.category | titlecase }}</h5>
+        <p
+          data-testid="tid-title"
+          [ngClass]="{ 'truncate hover:whitespace-normal': !fullWidthMode }"
+        >
           {{ product.title }}
         </p>
-        <p *ngIf="fullWidthMode">
+        <p data-testid="tid-description" *ngIf="fullWidthMode">
           {{ product.description }}
         </p>
       </div>
       <div class="flex justify-between items-center">
-        <span class="text-red-400">
+        <span data-testid="tid-price" class="text-red-400">
           {{ product.price | currency : "INR" }}
         </span>
-        <button class="flex" (click)="onAddToCart()">
+        <button
+          data-testid="tid-add-to-cart"
+          class="flex"
+          (click)="onAddToCart()"
+        >
           <mat-icon class="text-gray-500"> shopping_cart </mat-icon>
         </button>
       </div>
