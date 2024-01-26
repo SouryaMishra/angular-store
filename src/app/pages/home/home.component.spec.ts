@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ProductsHeaderComponent } from './components/products-header/products-header.component';
+import { ProductBoxComponent } from './components/product-box/product-box.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
@@ -23,9 +24,18 @@ describe('HomeComponent', () => {
     clearCart() {},
     addToCart() {},
   };
-  let storeService = {
+  let storeService: Partial<StoreService> = {
     getAllProducts() {
-      return of([]);
+      return of([
+        {
+          id: 1,
+          title: 'Seagate',
+          price: 2000,
+          category: 'electronics',
+          description: 'External hard drive',
+          image: 'hdd.png',
+        },
+      ]);
     },
     getAllCategories() {
       return of([]);
@@ -51,7 +61,12 @@ describe('HomeComponent', () => {
         MatMenuModule,
         MatIconModule,
       ],
-      declarations: [HomeComponent, FiltersComponent, ProductsHeaderComponent],
+      declarations: [
+        HomeComponent,
+        FiltersComponent,
+        ProductsHeaderComponent,
+        ProductBoxComponent,
+      ],
       providers: [
         { provide: CartService, useValue: cartService },
         { provide: StoreService, useValue: storeService },
@@ -65,5 +80,44 @@ describe('HomeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call method of store service with expected arguments', () => {
+    const storeServiceInjected =
+      fixture.debugElement.injector.get(StoreService);
+    const getAllProductsSpy = spyOn(
+      storeServiceInjected,
+      'getAllProducts'
+    ).and.callThrough();
+
+    component.onSortChange('asc');
+    expect(getAllProductsSpy).toHaveBeenCalledWith('12', 'asc', undefined);
+
+    component.onItemsCountChange(24);
+    expect(getAllProductsSpy).toHaveBeenCalledWith('24', 'asc', undefined);
+
+    component.onShowCategory('shoes');
+    expect(getAllProductsSpy).toHaveBeenCalledWith('24', 'asc', 'shoes');
+  });
+
+  it('should call checkout method of cart service', () => {
+    const cartServiceInjected = fixture.debugElement.injector.get(CartService);
+    const addToCartSpy = spyOn(cartServiceInjected, 'addToCart');
+
+    component.onAddToCart({
+      id: 2,
+      title: 'Nike',
+      price: 1000,
+      category: 'shoes',
+      description: 'Just do it',
+      image: 'shoe.png',
+    });
+    expect(addToCartSpy).toHaveBeenCalledWith({
+      id: 2,
+      product: 'shoe.png',
+      name: 'Nike',
+      price: 1000,
+      quantity: 1,
+    });
   });
 });
