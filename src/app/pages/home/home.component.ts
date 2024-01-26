@@ -51,6 +51,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getProducts() {
+    // Cancel previous subscription to prevent race condition and create a new subscription
+    if (this.productsSubscription) this.productsSubscription.unsubscribe();
+
     this.productsSubscription = this.storeService
       .getAllProducts(this.count, this.sort, this.category)
       .subscribe((products) => (this.products = products));
