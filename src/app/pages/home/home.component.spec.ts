@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -34,6 +35,14 @@ describe('HomeComponent', () => {
           category: 'electronics',
           description: 'External hard drive',
           image: 'hdd.png',
+        },
+        {
+          id: 2,
+          title: 'Nike',
+          price: 1000,
+          category: 'shoes',
+          description: 'Just do it',
+          image: 'shoe.png',
         },
       ]);
     },
@@ -80,6 +89,14 @@ describe('HomeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render product box component', () => {
+    expect(component.products.length).toBe(2);
+    const productBoxes = fixture.debugElement.queryAll(
+      By.css('app-product-box')
+    );
+    expect(productBoxes.length).toBe(2);
   });
 
   it('should call method of store service with expected arguments', () => {
